@@ -1,0 +1,38 @@
+name: Sync OpenAPI to Apidog
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+
+jobs:
+  import:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Fetch OpenAPI spec URL
+        id: spec
+        run: |
+          echo "spec_url=https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/main/apidog/openapi.yaml" >> $GITHUB_OUTPUT
+
+      - name: Import to Apidog via REST API
+        env:
+          APIDOG_TOKEN: ${{ secrets.APIDOG_TOKEN }}
+          PROJECT_ID: ${{ secrets.APIDOG_PROJECT_ID }}
+        run: |
+          curl -X POST \
+            "https://api.apidog.com/v1/projects/${PROJECT_ID}/import-openapi?locale=en-US" \
+            -H "Authorization: Bearer $APIDOG_TOKEN" \
+            -H "X-Apidog-Api-Version: 2024-03-28" \
+            -H "Content-Type: application/json" \
+            --data-raw "{
+              \"input\": { \"url\": \"${{ steps.spec.outputs.spec_url }}\" },
+              \"options\": {
+                \"endpointOverwriteBehavior\": \"OVERWRITE_EXISTING\",
+                \"endpointCaseOverwriteBehavior\": \"OVERWRITE_EXISTING\"
+              }
+            }"
