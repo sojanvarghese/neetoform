@@ -33,7 +33,7 @@ jobs:
             -H "X-Apidog-Api-Version: 2024-03-28" \
             -H "Content-Type: application/json" \
             --data-raw "{
-              \"input\": { \"url\": \"${{ steps.spec.outputs.spec_url }}?v=${VERSION}\" },
+              \"input\": { \"url\": \"${{ steps.spec.outputs.spec_url }}\" },
               \"options\": {
                 \"endpointOverwriteBehavior\": \"OVERWRITE_EXISTING\",
                 \"endpointCaseOverwriteBehavior\": \"OVERWRITE_EXISTING\"
