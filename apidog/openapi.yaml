@@ -87,7 +87,7 @@ paths:
           headers: {}
       security: []
 
-/api/external/v1/forms/{form_id}/submissions:
+  /api/external/v1/forms/{form_id}/submissions:
     get:
       summary: List all submissions
       deprecated: false
