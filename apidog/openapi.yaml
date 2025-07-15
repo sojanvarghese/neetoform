@@ -86,7 +86,6 @@ paths:
                     type: integer
           headers: {}
       security: []
-
   /api/external/v1/forms/{form_id}/submissions:
     get:
       summary: List all submissions
@@ -203,7 +202,6 @@ paths:
                     type: integer
           headers: {}
       security: []
-
 webhooks: {}
 components:
   schemas:
