@@ -1,0 +1,502 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "NeetoForm APIs",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "Forms"
+    },
+    {
+      "name": "Submissions"
+    }
+  ],
+  "paths": {
+    "/api/external/v1/forms": {
+      "get": {
+        "summary": "List all forms",
+        "deprecated": false,
+        "description": "This API allows to list all the forms in a workspace. Replace `workspace-name` with your workspace's subdomain.\n",
+        "tags": [
+          "Forms"
+        ],
+        "parameters": [
+          {
+            "name": "page_number",
+            "in": "query",
+            "description": "Retrieve paginated forms by specifying the desired page number. If this parameter is absent, all forms will be returned.",
+            "required": false,
+            "schema": {
+              "type": "Number"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "description": "Set the number of results returned in the response. Defaulting to 30 when omitted.",
+            "required": false,
+            "schema": {
+              "type": "Number"
+            }
+          },
+          {
+            "name": "X-Api-Key",
+            "in": "header",
+            "description": "X-Api-Key is used to authenticate requests using an API key. Provide your API key in this header to access protected endpoints. Refer to Authentication for more information.",
+            "required": true,
+            "example": "{{api-key}}",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK - Request succeeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "forms": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "is_published": {
+                            "type": "boolean"
+                          },
+                          "state": {
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "submissions_count": {
+                            "type": "integer"
+                          },
+                          "attempt_url": {
+                            "type": "string"
+                          },
+                          "is_archived": {
+                            "type": "boolean"
+                          },
+                          "is_disabled": {
+                            "type": "boolean"
+                          },
+                          "is_suspended": {
+                            "type": "boolean"
+                          },
+                          "created_by": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "total_count": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/external/v1/forms/{form_id}/submissions": {
+      "get": {
+        "summary": "List all submissions",
+        "deprecated": false,
+        "description": "This API allows to list all the submissions of a specified form in a workspace. Replace `your-workspace` with your workspace's subdomain.",
+        "tags": [
+          "Submissions"
+        ],
+        "parameters": [
+          {
+            "name": "form_id",
+            "in": "path",
+            "description": "Id of the form can be retrieved by going to the particular form, and copying it from the URL.",
+            "required": true,
+            "example": "238c77e9-f9b5-4cf7-b15a-a16b703ff4d6",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page_number",
+            "in": "query",
+            "description": "Retrieve paginated forms by specifying the desired page number. If this parameter is absent, all forms will be returned.",
+            "required": false,
+            "schema": {
+              "type": "Number"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "description": "Set the number of results returned in the response. Defaulting to 30 when omitted.",
+            "required": false,
+            "schema": {
+              "type": "Number"
+            }
+          },
+          {
+            "name": "X-Api-Key",
+            "in": "header",
+            "description": "X-Api-Key is used to authenticate requests using an API key. Provide your API key in this header to access protected endpoints. Refer to Authentication for more information.",
+            "required": true,
+            "example": "{{api-key}}",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK - Request succeeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "submissions": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "field_values": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {}
+                            }
+                          },
+                          "user_agent": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "version": {
+                                "type": "string"
+                              },
+                              "ip_address": {
+                                "type": "string"
+                              },
+                              "device_name": {
+                                "type": "string"
+                              },
+                              "device_type": {
+                                "type": "string"
+                              },
+                              "operating_system": {
+                                "type": "string"
+                              },
+                              "operating_system_version": {
+                                "type": "string"
+                              },
+                              "submission_id": {
+                                "type": "string"
+                              },
+                              "created_at": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "updated_at": {
+                                "type": "string",
+                                "format": "date-time"
+                              }
+                            }
+                          },
+                          "responses": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "label": {
+                                  "type": "string"
+                                },
+                                "position": {
+                                  "type": "integer"
+                                },
+                                "kind": {
+                                  "type": "string"
+                                },
+                                "slug": {
+                                  "type": "string"
+                                },
+                                "value": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "total_count": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Pagination": {
+        "type": "object",
+        "properties": {
+          "total_records": {
+            "type": "integer",
+            "description": "Total number of records"
+          },
+          "total_pages": {
+            "type": "integer",
+            "description": "Total number of pages available"
+          },
+          "current_page_number": {
+            "type": "integer",
+            "description": "Current page number"
+          },
+          "page_size": {
+            "type": "integer",
+            "description": "Number of records per page"
+          }
+        }
+      },
+      "Booking": {
+        "type": "object",
+        "properties": {}
+      },
+      "BookingListResponse": {
+        "type": "object",
+        "properties": {
+          "bookings": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Booking"
+            }
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          }
+        }
+      },
+      "Meeting": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "sid": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "one_on_one",
+              "round_robin",
+              "multihost",
+              "grouped"
+            ]
+          },
+          "duration": {
+            "type": "integer"
+          },
+          "disabled": {
+            "type": "boolean"
+          },
+          "spot": {
+            "type": "string",
+            "enum": [
+              "custom",
+              "jitsi",
+              "google_meet",
+              "daily",
+              "zoom",
+              "whereby",
+              "teams",
+              "phone_call",
+              "in_person"
+            ]
+          },
+          "spot_in_person_location": {
+            "type": "string",
+            "nullable": true
+          },
+          "spot_custom_text": {
+            "type": "string",
+            "nullable": true
+          },
+          "spot_phone_call_number": {
+            "type": "string",
+            "nullable": true
+          },
+          "is_template": {
+            "type": "boolean"
+          },
+          "schedulable_range_type": {
+            "type": "string",
+            "enum": [
+              "number_of_days_into_the_future",
+              "number_of_business_days_into_the_future",
+              "date_range"
+            ]
+          },
+          "schedulable_range_value": {
+            "type": "string"
+          },
+          "lead_time": {
+            "type": "integer"
+          },
+          "start_time_increment": {
+            "type": "integer"
+          },
+          "created_at": {
+            "type": "string",
+            "example": "2024-12-23T05:05:27.037Z"
+          },
+          "updated_at": {
+            "type": "string",
+            "example": "2025-03-31T13:22:19.832Z"
+          },
+          "deleted_at": {
+            "type": "string",
+            "nullable": true,
+            "example": null
+          },
+          "is_multiple_spots_allowed": {
+            "type": "boolean"
+          },
+          "is_multiple_durations_allowed": {
+            "type": "boolean"
+          },
+          "conditional_pricing_enabled": {
+            "type": "boolean"
+          },
+          "is_email_reminders_enabled": {
+            "type": "boolean"
+          },
+          "is_sms_reminders_enabled": {
+            "type": "boolean"
+          },
+          "organization_id": {
+            "type": "string"
+          },
+          "rescheduling_lead_time": {
+            "type": "integer"
+          },
+          "cancellation_lead_time": {
+            "type": "integer"
+          },
+          "booking_modification_allowed": {
+            "type": "boolean"
+          },
+          "cancellation_too_late_notice": {
+            "type": "string",
+            "nullable": true
+          },
+          "cancellation_policy": {
+            "type": "string",
+            "nullable": true
+          },
+          "rescheduling_too_late_notice": {
+            "type": "string",
+            "nullable": true
+          },
+          "pre_booking_allowed": {
+            "type": "boolean"
+          },
+          "original_price_enabled": {
+            "type": "boolean"
+          },
+          "original_price": {
+            "type": "number",
+            "nullable": true
+          },
+          "fees": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "durations_possible": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          }
+        }
+      },
+      "MeetingListResponse": {
+        "type": "object",
+        "properties": {
+          "meetings": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Meeting"
+            }
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "apikey-header-X-Api-Key": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-Api-Key"
+      }
+    }
+  },
+  "servers": [],
+  "security": []
+}
