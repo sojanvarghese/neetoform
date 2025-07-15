@@ -99,7 +99,7 @@ paths:
         - name: page_number
           in: query
           description: >-
-            Retrieve paginated.
+            Retrieve paginated submissions.
           required: false
           schema:
             type: Number
