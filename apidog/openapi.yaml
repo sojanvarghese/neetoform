@@ -83,7 +83,7 @@ paths:
       deprecated: false
       description: >-
         This API allows to list all the submissions of a specified form in a
-        workspace. Replace `workspace-name` with your workspace's subdomain.
+        organization. Replace `organization-name` with your organization's subdomain.
       tags:
         - Submissions
       parameters:
@@ -99,7 +99,7 @@ paths:
         - name: page_number
           in: query
           description: >-
-            Retrieve paginated submissions.
+            Id of the form can be retrieved by going to the particular form, and copying it from the URL.
           required: false
           schema:
             type: Number
