@@ -99,8 +99,7 @@ paths:
         - name: page_number
           in: query
           description: >-
-            Retrieve paginated forms by blablaa the desired page number. If
-            this parameter is absent, all forms will be returned.
+            Retrieve paginated.
           required: false
           schema:
             type: Number
