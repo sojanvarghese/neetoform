@@ -184,31 +184,7 @@ paths:
           headers: {}
       security:
         - apikey-header-X-Api-Key: []
-  /api/external/v1/forms/{form_id}/demo:
-    get:
-      summary: Demo
-      deprecated: false
-      description: ''
-      tags: []
-      parameters:
-        - name: form_id
-          in: path
-          description: ''
-          required: true
-          example: ''
-          schema:
-            type: string
-      responses:
-        '200':
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                properties: {}
-          headers: {}
-      security:
-        - apikey-header-X-Api-Key: []
+
 webhooks: {}
 components:
   securitySchemes:
