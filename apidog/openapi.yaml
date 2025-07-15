@@ -106,7 +106,7 @@ paths:
         - name: page_size
           in: query
           description: >-
-            Set the number of results returned in the response. Defaulting to 30
+            Set the number of results returned in the response. Defaulting to 100
             when omitted.
           required: false
           schema:
