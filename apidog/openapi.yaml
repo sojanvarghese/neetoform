@@ -83,7 +83,7 @@ paths:
       deprecated: false
       description: >-
         This API allows to list all the submissions of a specified form in a
-        organization. Replace `organization-name` with your organization's subdomain.
+        workspace. Replace `workspace-name` with your workspace's subdomain.
       tags:
         - Submissions
       parameters:
