@@ -11,9 +11,11 @@ paths:
     get:
       summary: List all forms
       deprecated: false
-      description: >
-        This API allows to list all the forms in a workspace. Replace
-        `workspace-name` with your workspace's subdomain.
+      description: >-
+        This API retrieves a list of all forms within a workspace. Replace
+        `spinkart` with your workspace’s subdomain. 
+
+        Refer to **Identifying your subdomain** for more information.
       tags:
         - Forms
       parameters:
@@ -82,6 +84,8 @@ paths:
                           type: boolean
                         created_by:
                           type: string
+                      required:
+                        - created_at
                   total_count:
                     type: integer
           headers: {}
@@ -92,7 +96,9 @@ paths:
       deprecated: false
       description: >-
         This API allows to list all the submissions of a specified form in a
-        workspace. Replace `your-workspace` with your workspace's subdomain.
+        workspace. Replace `spinkart` with your workspace’s subdomain. 
+
+        Refer to **Identifying your subdomain** for more information.
       tags:
         - Submissions
       parameters:
