@@ -42,7 +42,7 @@ paths:
             your API key in this header to access protected endpoints. Refer to
             Authentication for more information.
           required: true
-          example: '{{api-key}}'
+          example: '{{your-api-key}}'
           schema:
             type: string
       responses:
@@ -134,7 +134,7 @@ paths:
             your API key in this header to access protected endpoints. Refer to
             Authentication for more information.
           required: true
-          example: '{{api-key}}'
+          example: '{{your-api-key}}'
           schema:
             type: string
       responses:
