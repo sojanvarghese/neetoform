@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: NeetoForm APIs
+  title: NeetoForm API
   description: ''
   version: 1.0.0
 tags:
@@ -13,7 +13,7 @@ paths:
       deprecated: false
       description: >-
         This API retrieves a list of all forms within a workspace. Replace
-        `spinkart` with your workspace’s subdomain. 
+        `spinkart` with your workspace’s subdomain.
 
         Refer to **Identifying your subdomain** for more information.
       tags:
@@ -96,7 +96,7 @@ paths:
       deprecated: false
       description: >-
         This API allows to list all the submissions of a specified form in a
-        workspace. Replace `spinkart` with your workspace’s subdomain. 
+        workspace. Replace `spinkart` with your workspace’s subdomain.
 
         Refer to **Identifying your subdomain** for more information.
       tags:
