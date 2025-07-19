@@ -8,7 +8,87 @@ tags:
   - name: pet
   - name: store
   - name: user
+  - name: Submissions
 paths:
+  /api/external/v1:
+    get:
+      summary: List all forms
+      deprecated: false
+      description: >-
+        This API allows to list all the forms in a workspace. Replace `spinkart`
+        with your workspace's subdomain. 
+      tags:
+        - Forms
+        - Forms
+      parameters:
+        - name: page_number
+          in: query
+          description: >-
+            Retrieve paginated forms by specifying the desired page number. If
+            this parameter is absent, all forms will be returned.
+          required: false
+          schema:
+            type: Number
+        - name: page_size
+          in: query
+          description: >-
+            Set the number of results returned in the response. Defaulting to 30
+            when omitted.
+          required: false
+          schema:
+            type: Number
+      responses:
+        '200':
+          description: OK - Request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  forms:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        title:
+                          type: string
+                        is_published:
+                          type: boolean
+                        state:
+                          type: string
+                        created_at:
+                          type: string
+                          format: date-time
+                        updated_at:
+                          type: string
+                          format: date-time
+                        submissions_count:
+                          type: integer
+                        attempt_url:
+                          type: string
+                        is_archived:
+                          type: boolean
+                        is_disabled:
+                          type: boolean
+                        is_suspended:
+                          type: boolean
+                        created_by:
+                          type: string
+                  total_count:
+                    type: integer
+          headers: {}
+        '400':
+          description: Bad Request - Missing/Invalid parameters
+          headers: {}
+        '401':
+          description: Unauthorized - Invalid API key
+          headers: {}
+        '501':
+          description: Internal server error
+          headers: {}
+      security: []
   /api/external/v1/forms:
     get:
       summary: List all fooorms
@@ -784,6 +864,131 @@ paths:
               schema:
                 type: object
                 properties: {}
+          headers: {}
+      security: []
+  /api/external/v1/forms/{form_id}/submissions:
+    get:
+      summary: List all submissions
+      deprecated: false
+      description: >-
+        This API allows to list all the submissions of a specified form in a
+        workspace. Replace `spinkart` with your workspace's subdomain.
+      tags:
+        - Submissions
+        - Submissions
+      parameters:
+        - name: form_id
+          in: path
+          description: >-
+            Id of the form can be retrieved by going to the particular form, and
+            copying it from the URL.
+          required: true
+          example: 238c77e9-f9b5-4cf7-b15a-a16b703ff4d6
+          schema:
+            type: string
+        - name: page_number
+          in: query
+          description: >-
+            Retrieve paginated forms by specifying the desired page number. If
+            this parameter is absent, all forms will be returned.
+          required: false
+          schema:
+            type: Number
+        - name: page_size
+          in: query
+          description: >-
+            Set the number of results returned in the response. Defaulting to 30
+            when omitted.
+          required: false
+          schema:
+            type: Number
+        - name: X-Api-Key
+          in: header
+          description: >-
+            You can generate an API key from [NeetoForm API Keys
+            dashboard](https://help.neetoform.com/p/a-b5babf4e).
+          required: true
+          example: ''
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK - Request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  submissions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        created_at:
+                          type: string
+                          format: date-time
+                        field_values:
+                          type: array
+                          items:
+                            type: object
+                            properties: {}
+                        user_agent:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            name:
+                              type: string
+                            version:
+                              type: string
+                            ip_address:
+                              type: string
+                            device_name:
+                              type: string
+                            device_type:
+                              type: string
+                            operating_system:
+                              type: string
+                            operating_system_version:
+                              type: string
+                            submission_id:
+                              type: string
+                            created_at:
+                              type: string
+                              format: date-time
+                            updated_at:
+                              type: string
+                              format: date-time
+                        responses:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                              label:
+                                type: string
+                              position:
+                                type: integer
+                              kind:
+                                type: string
+                              slug:
+                                type: string
+                              value:
+                                type: string
+                  total_count:
+                    type: integer
+          headers: {}
+        '400':
+          description: Bad Request - Missing/Invalid parameters
+          headers: {}
+        '401':
+          description: Unauthorized - Invalid API key
+          headers: {}
+        '500':
+          description: Internal server error
           headers: {}
       security: []
 webhooks: {}
