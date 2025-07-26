@@ -4,212 +4,29 @@ info:
   description: ''
   version: 1.0.0
 tags:
-  - name: Forms
-  - name: Submissions
+  - name: Team Members
+  - name: Time entry
+  - name: Clients
+  - name: Recipients
+  - name: Projects
+  - name: Project Team Members
+  - name: Invoices
 paths:
-  /api/external/v1/forms:
+  /team_members:
     get:
-      summary: List all fooorms
+      summary: List all team members
       deprecated: false
       description: >-
-        This API retrieves a list of all forms within a workspace. Replace
-        `spinkart` with your workspace’s subdomain.
-
-        Refer to **Identifying your subdomain** for more information.
+        This API allows to list all team members in the workspace. Replace
+        `spinkart` with your workspace's subdomain.
       tags:
-        - Forms
+        - Team Members
       parameters:
-        - name: page_number
-          in: query
-          description: >-
-            Retrieve paginated forms by specifying the desired page number. If
-            this parameter is absent, all forms will be returned.
-          required: false
-          schema:
-            type: Number
-        - name: page_size
-          in: query
-          description: >-
-            Set the number of results returned in the response. Defaulting to 30
-            when omitted.
-          required: false
-          schema:
-            type: Number
         - name: X-Api-Key
           in: header
           description: >-
-            X-Api-Key is used to authenticate requests using an API key. Provide
-            your API key in this header to access protected endpoints. Refer to
-            Authentication for more information.
-          required: true
-          example: '{{your-api-key}}'
-          schema:
-            type: string
-      responses:
-        '200':
-          description: OK - Request succeeded
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  forms:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        id:
-                          type: string
-                        title:
-                          type: string
-                        is_published:
-                          type: boolean
-                        state:
-                          type: string
-                        created_at:
-                          type: string
-                          format: date-time
-                        updated_at:
-                          type: string
-                          format: date-time
-                        submissions_count:
-                          type: integer
-                        attempt_url:
-                          type: string
-                        is_archived:
-                          type: boolean
-                        is_disabled:
-                          type: boolean
-                        is_suspended:
-                          type: boolean
-                        created_by:
-                          type: string
-                      required:
-                        - created_at
-                  total_count:
-                    type: integer
-          headers: {}
-      security: []
-  /api/external/v1:
-    get:
-      summary: List all forms
-      deprecated: false
-      description: >-
-        This API allows to list all the forms in a workspace. Replace `spinkart`
-        with your workspace's subdomain. 
-      operationId: /forms-1
-      tags:
-        - Forms
-      parameters:
-        - name: page_number
-          in: query
-          description: >-
-            Retrieve paginated forms by specifying the desired page number. If
-            this parameter is absent, all forms will be returned.
-          required: false
-          schema:
-            type: Number
-        - name: page_size
-          in: query
-          description: >-
-            Set the number of results returned in the response. Defaulting to 30
-            when omitted.
-          required: false
-          schema:
-            type: Number
-      responses:
-        '200':
-          description: OK - Request succeeded
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  forms:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        id:
-                          type: string
-                        title:
-                          type: string
-                        is_published:
-                          type: boolean
-                        state:
-                          type: string
-                        created_at:
-                          type: string
-                          format: date-time
-                        updated_at:
-                          type: string
-                          format: date-time
-                        submissions_count:
-                          type: integer
-                        attempt_url:
-                          type: string
-                        is_archived:
-                          type: boolean
-                        is_disabled:
-                          type: boolean
-                        is_suspended:
-                          type: boolean
-                        created_by:
-                          type: string
-                  total_count:
-                    type: integer
-          headers: {}
-        '400':
-          description: Bad Request - Missing/Invalid parameters
-          headers: {}
-        '401':
-          description: Unauthorized - Invalid API key
-          headers: {}
-        '501':
-          description: Internal server error
-          headers: {}
-      security: []
-  /api/external/v1/forms/{form_id}/submissions:
-    get:
-      summary: List all submissions
-      deprecated: false
-      description: >-
-        This API allows to list all the submissions of a specified form in a
-        workspace. Replace `spinkart` with your workspace's subdomain.
-      tags:
-        - Submissions
-        - Submissions
-      parameters:
-        - name: form_id
-          in: path
-          description: >-
-            Id of the form can be retrieved by going to the particular form, and
-            copying it from the URL.
-          required: true
-          example: 238c77e9-f9b5-4cf7-b15a-a16b703ff4d6
-          schema:
-            type: string
-        - name: page_number
-          in: query
-          description: >-
-            Retrieve paginated forms by specifying the desired page number. If
-            this parameter is absent, all forms will be returned.
-          required: false
-          schema:
-            type: Number
-        - name: page_size
-          in: query
-          description: >-
-            Set the number of results returned in the response. Defaulting to 30
-            when omitted.
-          required: false
-          schema:
-            type: Number
-        - name: X-Api-Key
-          in: header
-          description: >-
-            You can generate an API key from [NeetoForm API Keys
-            dashboard](https://help.neetoform.com/p/a-b5babf4e).
+            You can generate an API key from the [NeetoInvoice API Keys
+            dashboard](https://help.neetoinvoice.com/p/a-828218a7).
           required: true
           example: ''
           schema:
@@ -222,76 +39,2318 @@ paths:
               schema:
                 type: object
                 properties:
-                  submissions:
+                  team_members:
                     type: array
                     items:
                       type: object
                       properties:
                         id:
                           type: string
+                        email:
+                          type: string
+                        first_name:
+                          type: string
+                        last_name:
+                          type: string
+                        time_zone:
+                          type: string
+                        profile_image_url:
+                          type:
+                            - string
+                            - 'null'
+                        active:
+                          type: boolean
+                        organization_role:
+                          type: string
+                  pagination:
+                    type: object
+                    properties:
+                      total_records:
+                        type: integer
+                      total_pages:
+                        type: integer
+                      current_page:
+                        type: integer
+                      page_size:
+                        type: integer
+          headers: {}
+      security: []
+  /time_entry:
+    post:
+      summary: Create a time entry
+      deprecated: false
+      description: >
+        This API allows to create a time entry for a project. Replace `spinkart`
+        with your workspace's subdomain.
+      tags:
+        - Time entry
+      parameters:
+        - name: X-Api-Key
+          in: header
+          description: >-
+            You can generate an API key from [NeetoInvoice API Keys
+            dashboard](https://help.neetoinvoice.com/p/a-828218a7).
+          required: true
+          example: ''
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                client_id:
+                  type: string
+                  description: >-
+                    Identifier of the client can be retrieved by going to the
+                    particular client page, and copying it from the URL.
+                  examples:
+                    - d3e77fe4b9cae1e82d8a
+                project_id:
+                  type: string
+                  description: >-
+                    Identifier of the project can be retrieved by going to the
+                    particular project page, and copying it from the URL.
+                  examples:
+                    - e34204233797f4b637c5
+                task_id:
+                  type: string
+                  description: Unique ID of the task.
+                  examples:
+                    - 3195a9df-337d-4753-9247-8d73d998e622
+                email:
+                  type: string
+                  format: email
+                  description: Email address of the user.
+                  examples:
+                    - adam@example.com
+                recorded_on:
+                  type: string
+                  format: date
+                  description: Date on which the time entry needs to be added.
+                  examples:
+                    - '2025-06-06'
+                notes:
+                  type: string
+                  description: Additional notes for the task.
+                  examples:
+                    - Completed working on adding tests.
+                hours:
+                  type: string
+                  description: Number of hours worked on that particular task.
+                  examples:
+                    - '2'
+                checklist_items:
+                  type: array
+                  description: List of checklist items.
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        description: Unique ID of the checklist item.
+                        examples:
+                          - fe067c21-ee1e-432a-9f38-f1ae0d7ceaf2
+                      is_completed:
+                        type: boolean
+                        description: Status of the checklist item.
+                        examples:
+                          - true
+              required:
+                - client_id
+                - project_id
+                - task_id
+                - email
+                - hours
+                - recorded_on
+      responses:
+        '200':
+          description: OK - Request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  notice_code:
+                    type: string
+                  ticket:
+                    type: object
+                    properties:
+                      organization_id:
+                        type: string
+                      subdomain:
+                        type: string
+                      id:
+                        type: string
+                      hours:
+                        type: number
+                        format: float
+                      notes:
+                        type: string
+                      task_id:
+                        type: string
+                      user_id:
+                        type: string
+                      user_email:
+                        type: string
+                        format: email
+                      recorded_on:
+                        type: string
+                        format: date
+                      status:
+                        type: string
+                      created_at:
+                        type: string
+                        format: date-time
+                      updated_at:
+                        type: string
+                        format: date-time
+          headers: {}
+      security: []
+  /clients:
+    post:
+      summary: Create a client
+      deprecated: false
+      description: >
+        This API allows to create a client. Replace `spinkart` with your
+        workspace's subdomain.
+      tags:
+        - Clients
+      parameters:
+        - name: X-Api-Key
+          in: header
+          description: >-
+            You can generate an API key from [NeetoInvoice API Keys
+            dashboard](https://help.neetoinvoice.com/p/a-828218a7).
+          required: true
+          example: ''
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                client:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: New name of the client.
+                      examples:
+                        - Neeto Client Inc.
+                    secondary_name:
+                      type: string
+                      description: Optional secondary name for the client.
+                      examples:
+                        - Subsidiary Alpha
+                    default_invoice_due_in_days:
+                      type: string
+                      description: >-
+                        Number of days after which an invoice is due by default
+                        for this client.
+                      examples:
+                        - '30'
+                    internal_notes:
+                      type: string
+                      description: Internal notes about the client.
+                      examples:
+                        - 'Preferred billing cycle: monthly'
+                    currency:
+                      type: string
+                      description: Currency code for the client.
+                      examples:
+                        - USD
+                    status:
+                      type: string
+                      description: Status of the client.
+                      enum:
+                        - active
+                        - archived
+                      examples:
+                        - active
+                  required:
+                    - name
+                    - currency
+                    - status
+      responses:
+        '200':
+          description: OK - Request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  notice_code:
+                    type: string
+                  client_id:
+                    type: string
+                    format: uuid
+          headers: {}
+      security: []
+  /clients/{client_id}:
+    get:
+      summary: Get the details of a client
+      deprecated: false
+      description: >
+        This API allows to get details about a client. Replace `spinkart` with
+        your workspace's subdomain.
+      tags:
+        - Clients
+      parameters:
+        - name: client_id
+          in: path
+          description: >-
+            Identifier of the client can be retrieved by going to the particular
+            client page, and copying it from the URL.
+          required: true
+          example: a8b90a464cad12b48e45
+          schema:
+            type: string
+        - name: X-Api-Key
+          in: header
+          description: >-
+            You can generate an API key from [NeetoInvoice API Keys
+            dashboard](https://help.neetoinvoice.com/p/a-828218a7).
+          required: true
+          example: ''
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK - Request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  client:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      created_at:
+                        type: string
+                        format: date-time
+                      updated_at:
+                        type: string
+                        format: date-time
+                      identifier:
+                        type: string
+                      internal_notes:
+                        type: string
+                      currency:
+                        type: string
+                      status:
+                        type: string
+                        enum:
+                          - active
+                          - archived
+                      logo:
+                        type: 'null'
+                      id:
+                        type: string
+                        format: uuid
+                      organization_id:
+                        type: string
+                        format: uuid
+                      default_invoice_due_in_days:
+                        type: integer
+                      include_hours_by_person_in_invoice:
+                        type: boolean
+                      secondary_name:
+                        type: string
+                      last_invoice_interval:
+                        type: string
+                  recipients:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+                        creator_id:
+                          type: string
+                          format: uuid
+                        client_id:
+                          type: string
+                          format: uuid
+                        name:
+                          type: string
+                        email:
+                          type: string
+                          format: email
+                        deleted:
+                          type: boolean
                         created_at:
                           type: string
                           format: date-time
-                        field_values:
-                          type: array
-                          items:
-                            type: object
-                            properties: {}
-                        user_agent:
+                        updated_at:
+                          type: string
+                          format: date-time
+          headers: {}
+      security: []
+    put:
+      summary: Update client details
+      deprecated: false
+      description: >
+        This API allows to update the details of a client. Replace `spinkart`
+        with your workspace's subdomain.
+      tags:
+        - Clients
+      parameters:
+        - name: client_id
+          in: path
+          description: >-
+            Identifier of the client can be retrieved by going to the particular
+            client page, and copying it from the URL.
+          required: true
+          example: a8b90a464cad12b48e45
+          schema:
+            type: string
+        - name: X-Api-Key
+          in: header
+          description: >-
+            You can generate an API key from [NeetoInvoice API Keys
+            dashboard](https://help.neetoinvoice.com/p/a-828218a7).
+          required: true
+          example: ''
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                client:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: New name of the client.
+                      examples:
+                        - Neeto Client Inc.
+                    secondary_name:
+                      type: string
+                      description: Optional secondary name for the client.
+                      examples:
+                        - Subsidiary Alpha
+                    default_invoice_due_in_days:
+                      type: string
+                      description: >-
+                        Number of days after which an invoice is due by default
+                        for this client.
+                      examples:
+                        - '30'
+                    internal_notes:
+                      type: string
+                      description: Internal notes about the client.
+                      examples:
+                        - 'Preferred billing cycle: monthly'
+                    currency:
+                      type: string
+                      description: Currency code for the client.
+                      examples:
+                        - USD
+                    status:
+                      type: string
+                      description: Status of the client.
+                      enum:
+                        - active
+                        - archived
+                      examples:
+                        - active
+                    address_attributes:
+                      type: object
+                      description: Address details associated with the client.
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+                          description: Existing address ID for updates.
+                          examples:
+                            - aae6c64f-d395-4a93-8062-9791fae8920a
+                        full_address:
+                          type: string
+                          description: Full Address of the client.
+                          examples:
+                            - 123 Main St, Springfield, IL 62704, USA
+      responses:
+        '200':
+          description: OK - Request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  notice_code:
+                    type: string
+          headers: {}
+      security: []
+  /clients/update_status:
+    post:
+      summary: Update client status
+      deprecated: false
+      description: >
+        This API allows to update the status of clients. Replace `spinkart` with
+        your workspace's subdomain.
+      tags:
+        - Clients
+      parameters:
+        - name: X-Api-Key
+          in: header
+          description: >-
+            You can generate an API key from [NeetoInvoice API Keys
+            dashboard](https://help.neetoinvoice.com/p/a-828218a7).
+          required: true
+          example: ''
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                client_ids:
+                  type: array
+                  description: List of client IDs to apply the status change to.
+                  items:
+                    type: string
+                    format: uuid
+                  examples:
+                    - - 2d2f5904-eb66-4d63-84a4-c95a3fdb4e1c
+                      - 2svf5904-eb66-4d63-23e2-c95a3fdb4e1c
+                status:
+                  type: string
+                  description: Status of the clients.
+                  enum:
+                    - active
+                    - archived
+                  examples:
+                    - active
+              required:
+                - client_ids
+                - status
+      responses:
+        '200':
+          description: OK - Request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  notice_code:
+                    type: string
+                  custom_message:
+                    type: string
+          headers: {}
+      security: []
+  /clients/{client_id}/recipients:
+    post:
+      summary: Create a recipient
+      deprecated: false
+      description: >
+        This API allows to create a recipient for a client. Replace `spinkart`
+        with your workspace's subdomain.
+      tags:
+        - Recipients
+      parameters:
+        - name: client_id
+          in: path
+          description: >-
+            Identifier of the client can be retrieved by going to the particular
+            client page, and copying it from the URL.
+          required: true
+          example: a8b90a464cad12b48e45
+          schema:
+            type: string
+        - name: X-Api-Key
+          in: header
+          description: >-
+            You can generate an API key from [NeetoInvoice API Keys
+            dashboard](https://help.neetoinvoice.com/p/a-828218a7).
+          required: true
+          example: ''
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                recipient:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: Full name of the recipient.
+                      examples:
+                        - Tim Bradford
+                    email:
+                      type: string
+                      format: email
+                      description: Email address of the recipient.
+                      examples:
+                        - tim@example.com
+                email:
+                  type: string
+                  format: email
+                  description: Email address of the creator.
+                  examples:
+                    - oliver@example.com
+              required:
+                - recipient
+                - email
+      responses:
+        '200':
+          description: OK - Request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  notice_code:
+                    type: string
+          headers: {}
+      security: []
+  /clients/{client_id}/recipients/{recipient_id}:
+    put:
+      summary: Update a recipient
+      deprecated: false
+      description: >
+        This API allows to update the recipient of a client. Replace `spinkart`
+        with your workspace's subdomain.
+      tags:
+        - Recipients
+      parameters:
+        - name: client_id
+          in: path
+          description: >-
+            Identifier of the client can be retrieved by going to the particular
+            client page, and copying it from the URL.
+          required: true
+          example: a8b90a464cad12b48e45
+          schema:
+            type: string
+        - name: recipient_id
+          in: path
+          description: Unique Id of recipient that you want to update.
+          required: true
+          example: 128c1dfc-b29f-4fda-9a05-8a90e197b81b
+          schema:
+            type: string
+        - name: X-Api-Key
+          in: header
+          description: >-
+            You can generate an API key from [NeetoInvoice API Keys
+            dashboard](https://help.neetoinvoice.com/p/a-828218a7).
+          required: true
+          example: ''
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                recipient:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: Full name of the recipient.
+                      examples:
+                        - Tim Bradford
+                    email:
+                      type: string
+                      format: email
+                      description: Email address of the recipient.
+                      examples:
+                        - tim@example.com
+              required:
+                - recipient
+      responses:
+        '200':
+          description: OK - Request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  notice_code:
+                    type: string
+          headers: {}
+      security: []
+    delete:
+      summary: Delete a recipient
+      deprecated: false
+      description: >
+        This API allows to delete a recipient for a client. Replace `spinkart`
+        with your workspace's subdomain.
+      tags:
+        - Recipients
+      parameters:
+        - name: client_id
+          in: path
+          description: >-
+            Identifier of the client can be retrieved by going to the particular
+            client page, and copying it from the URL.
+          required: true
+          example: a8b90a464cad12b48e45
+          schema:
+            type: string
+        - name: recipient_id
+          in: path
+          description: Unique Id of recipient that you want to delete.
+          required: true
+          example: 128c1dfc-b29f-4fda-9a05-8a90e197b81b
+          schema:
+            type: string
+        - name: X-Api-Key
+          in: header
+          description: >-
+            You can generate an API key from [NeetoInvoice API Keys
+            dashboard](https://help.neetoinvoice.com/p/a-828218a7).
+          required: true
+          example: ''
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK - Request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  notice_code:
+                    type: string
+                  recipient:
+                    type: object
+                    properties:
+                      client_id:
+                        type: string
+                        format: uuid
+                      deleted:
+                        type: boolean
+                      name:
+                        type: string
+                      creator_id:
+                        type: string
+                        format: uuid
+                      email:
+                        type: string
+                        format: email
+                      id:
+                        type: string
+                        format: uuid
+                      created_at:
+                        type: string
+                        format: date-time
+                      updated_at:
+                        type: string
+                        format: date-time
+          headers: {}
+      security: []
+  /projects:
+    post:
+      summary: Create a project
+      deprecated: false
+      description: >
+        This API allows to create a project in an organization. Replace
+        `spinkart` with your workspace's subdomain.
+      tags:
+        - Projects
+      parameters:
+        - name: X-Api-Key
+          in: header
+          description: >-
+            You can generate an API key from [NeetoInvoice API Keys
+            dashboard](https://help.neetoinvoice.com/p/a-828218a7).
+          required: true
+          example: ''
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                project:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: Name of the project.
+                      examples:
+                        - Website Redesign Initiative
+                    client_id:
+                      type: string
+                      format: uuid
+                      description: Unique identifier for the client.
+                      examples:
+                        - 5a2de667-243b-4da3-b090-b698a03d98da
+                    hourly_rate:
+                      type:
+                        - number
+                        - 'null'
+                      description: >-
+                        Hourly rate for the project. Required if billing_method
+                        is 'hourly_project_rate'.
+                      examples:
+                        - 75.5
+                    billing_method:
+                      type: string
+                      description: The billing strategy used for the project.
+                      enum:
+                        - hourly_project_rate
+                        - hourly_person_rate
+                        - hourly_task_rate
+                        - fixed_price_project
+                    currency:
+                      type: string
+                      description: Currency used for billing.
+                      examples:
+                        - USD
+                    flat_amount:
+                      type:
+                        - number
+                        - 'null'
+                      description: >-
+                        Fixed amount for the project. Required if billing_method
+                        is 'fixed_price_project'.
+                      examples:
+                        - 5000
+                    internal_notes:
+                      type: string
+                      description: Internal notes about the project.
+                      examples:
+                        - This is a priority project with tight deadlines
+                    time_round_upto:
+                      type: integer
+                      description: Time rounding configuration in minutes.
+                      enum:
+                        - 0
+                        - 6
+                        - 15
+                        - 30
+                      examples:
+                        - 15
+                    autolock_enabled:
+                      type: boolean
+                      description: Whether automatic time entry locking is enabled.
+                      examples:
+                        - true
+                    reply_to:
+                      type: string
+                      format: email
+                      description: Reply-to email address for project communications.
+                      examples:
+                        - project-manager@example.com
+                    enable_approvals:
+                      type: boolean
+                      description: Whether timesheet approvals are required.
+                      examples:
+                        - true
+                    notify_timesheet_approval_request_instantly:
+                      type: boolean
+                      description: Send instant notifications for approval requests.
+                      examples:
+                        - false
+                    notify_timesheet_approval_request_weekly:
+                      type: boolean
+                      description: Send weekly notifications for approval requests.
+                      examples:
+                        - true
+                    timesheet_approval_email_notification_day:
+                      type: string
+                      description: Day of the week for weekly approval notifications.
+                      enum:
+                        - sunday
+                        - monday
+                        - tuesday
+                        - wednesday
+                        - thursday
+                        - friday
+                        - saturday
+                      examples:
+                        - friday
+                    timesheet_approval_email_notification_time:
+                      type: string
+                      description: >-
+                        Time of day for weekly approval notifications (24-hour
+                        format).
+                      examples:
+                        - '17:00'
+                    autolock_settings:
+                      type: object
+                      description: Configuration to automatically lock time entries.
+                      properties:
+                        end_of_the_day:
+                          type: boolean
+                          description: Lock time entries at the end of each day.
+                          examples:
+                            - true
+                        end_of_the_week:
+                          type: boolean
+                          description: Lock time entries at the end of each week.
+                          examples:
+                            - false
+                        end_of_the_month:
+                          type: boolean
+                          description: Lock time entries at the end of each month.
+                          examples:
+                            - false
+                    project_users_attributes:
+                      type: array
+                      description: Users assigned to the project along with their roles.
+                      items:
+                        type: object
+                        properties:
+                          user_id:
+                            type: string
+                            format: uuid
+                            description: Unique ID of the user.
+                            examples:
+                              - f448f61d-0834-455c-b9f2-8a69fe159c16
+                          role:
+                            type: string
+                            description: Role of the user in the project.
+                            enum:
+                              - project_manager
+                              - regular_user
+                            examples:
+                              - project_manager
+                          hourly_rate:
+                            type:
+                              - number
+                              - 'null'
+                            description: Hourly rate for user.
+                            examples:
+                              - 75.5
+                          approval_type:
+                            type: string
+                            description: Approval type for timesheet submissions.
+                            enum:
+                              - manual_approval
+                              - auto_approval
+                            examples:
+                              - manual_approval
+                    tasks_attributes:
+                      type: array
+                      description: List of tasks included in the project.
+                      items:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                            description: Name of the task.
+                            examples:
+                              - UI Design Phase
+                          billable:
+                            type: boolean
+                            description: Whether the task is billable.
+                            examples:
+                              - true
+                          hourly_rate:
+                            type:
+                              - number
+                              - 'null'
+                            description: Hourly rate for the task.
+                            examples:
+                              - 75.5
+                          checklists_attributes:
+                            type: array
+                            description: Checklist items for the task.
+                            items:
+                              type: object
+                              properties:
+                                description:
+                                  type: string
+                                  description: Description of the checklist item.
+                                  examples:
+                                    - Create wireframe mockups
+                                required:
+                                  type: boolean
+                                  description: Indicates if the checklist item is required.
+                                  examples:
+                                    - true
+                                completed:
+                                  type: boolean
+                                  description: Status of the checklist item.
+                                  examples:
+                                    - false
+                  required:
+                    - name
+                    - client_id
+                    - billing_method
+                email:
+                  type: string
+                  format: email
+                  description: Email of the person creating the invoice.
+                  examples:
+                    - oliver@example.com
+              required:
+                - email
+      responses:
+        '200':
+          description: OK - Project created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  notice_code:
+                    type: string
+                  project:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      created_at:
+                        type: string
+                        format: date-time
+                      updated_at:
+                        type: string
+                        format: date-time
+                      identifier:
+                        type: string
+                      billing_method:
+                        type: string
+                      hourly_rate:
+                        type:
+                          - number
+                          - 'null'
+                      flat_amount:
+                        type: string
+                      status:
+                        type: string
+                      id:
+                        type: string
+                        format: uuid
+                      client_id:
+                        type: string
+                      last_invoice_id:
+                        type:
+                          - string
+                          - 'null'
+                      internal_notes:
+                        type: string
+                      time_round_upto:
+                        type: integer
+                      autolock_enabled:
+                        type: boolean
+                      autolock_settings:
+                        type: object
+                        properties:
+                          end_of_the_day:
+                            type: string
+                          end_of_the_week:
+                            type: string
+                          end_of_the_month:
+                            type: string
+                      currency:
+                        type: string
+          headers: {}
+      security: []
+  /projects/{project_id}:
+    put:
+      summary: Update a project
+      deprecated: false
+      description: >
+        This API allows to update an existing project. Replace `spinkart` with
+        your workspace's subdomain.
+      tags:
+        - Projects
+      parameters:
+        - name: project_id
+          in: path
+          description: >-
+            Identifier of the project can be retrieved by going to the
+            particular project page, and copying it from the URL.
+          required: true
+          example: e34204233797f4b637c5
+          schema:
+            type: string
+        - name: X-Api-Key
+          in: header
+          description: >-
+            You can generate an API key from [NeetoInvoice API Keys
+            dashboard](https://help.neetoinvoice.com/p/a-828218a7).
+          required: true
+          example: ''
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                project:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: Name of the project.
+                      examples:
+                        - Website Redesign Initiative - Updated
+                    client_id:
+                      type: string
+                      format: uuid
+                      description: Unique identifier for the client.
+                      examples:
+                        - 5a2de667-243b-4da3-b090-b698a03d98da
+                    hourly_rate:
+                      type:
+                        - number
+                        - 'null'
+                      description: Hourly rate for the project.
+                      examples:
+                        - 85
+                    billing_method:
+                      type: string
+                      description: The billing strategy used for the project.
+                      enum:
+                        - hourly_project_rate
+                        - hourly_person_rate
+                        - hourly_task_rate
+                        - fixed_price_project
+                    currency:
+                      type: string
+                      description: Currency used for billing.
+                      examples:
+                        - USD
+                    flat_amount:
+                      type:
+                        - number
+                        - 'null'
+                      description: >-
+                        Fixed amount for the project. Required if billing_method
+                        is 'fixed_price_project'.
+                      examples:
+                        - 5000
+                    internal_notes:
+                      type: string
+                      description: Internal notes about the project.
+                      examples:
+                        - Updated project scope and requirements
+                    time_round_upto:
+                      type: integer
+                      description: Time rounding configuration in minutes.
+                      enum:
+                        - 0
+                        - 6
+                        - 15
+                        - 30
+                      examples:
+                        - 15
+                    autolock_enabled:
+                      type: boolean
+                      description: Whether automatic time entry locking is enabled.
+                      examples:
+                        - true
+                    enable_approvals:
+                      type: boolean
+                      description: Whether timesheet approvals are required.
+                      examples:
+                        - true
+                    notify_timesheet_approval_request_instantly:
+                      type: boolean
+                      description: Send instant notifications for approval requests.
+                      examples:
+                        - false
+                    notify_timesheet_approval_request_weekly:
+                      type: boolean
+                      description: Send weekly notifications for approval requests.
+                      examples:
+                        - true
+                    timesheet_approval_email_notification_day:
+                      type: string
+                      description: Day of the week for weekly approval notifications.
+                      enum:
+                        - sunday
+                        - monday
+                        - tuesday
+                        - wednesday
+                        - thursday
+                        - friday
+                        - saturday
+                      examples:
+                        - friday
+                    timesheet_approval_email_notification_time:
+                      type: string
+                      description: Time of day for weekly approval notifications.
+                      examples:
+                        - '17:00'
+                    autolock_settings:
+                      type: object
+                      description: Configuration for automatic time entry locking.
+                      properties:
+                        end_of_the_day:
+                          type: boolean
+                          description: Lock time entries at the end of each day.
+                          examples:
+                            - true
+                        end_of_the_week:
+                          type: boolean
+                          description: Lock time entries at the end of each week.
+                          examples:
+                            - false
+                        end_of_the_month:
+                          type: boolean
+                          description: Lock time entries at the end of each month.
+                          examples:
+                            - false
+                    tasks_attributes:
+                      type: array
+                      description: List of tasks to update in the project.
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                            format: uuid
+                            description: Existing task ID for updates.
+                            examples:
+                              - 65603092-9418-4f55-9d54-e0fe4b8b1c79
+                          name:
+                            type: string
+                            description: Name of the task.
+                            examples:
+                              - Updated UI Design Phase
+                          billable:
+                            type: boolean
+                            description: Whether the task is billable.
+                            examples:
+                              - true
+                          hourly_rate:
+                            type:
+                              - number
+                              - 'null'
+                            description: Hourly rate for the task.
+                            examples:
+                              - 85
+                          checklists_attributes:
+                            type: array
+                            description: Checklist items for the task.
+                            items:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                  format: uuid
+                                  description: Existing checklist item ID for updates.
+                                description:
+                                  type: string
+                                  description: Description of the checklist item.
+                                  examples:
+                                    - Review wireframe mockups
+                                required:
+                                  type: boolean
+                                  description: Indicates if the checklist item is required.
+                                  examples:
+                                    - true
+                    project_users_attributes:
+                      type: array
+                      description: Users assigned to the project along with their roles.
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                            format: uuid
+                            description: Existing project user ID for updates.
+                          user_id:
+                            type: string
+                            description: Unique ID of the user.
+                            examples:
+                              - f448f61d-0834-455c-b9f2-8a69fe159c16
+                          role:
+                            type: string
+                            description: Role of the user in the project.
+                            enum:
+                              - project_manager
+                              - regular_user
+                            examples:
+                              - project_manager
+                          hourly_rate:
+                            type:
+                              - number
+                              - 'null'
+                            description: Hourly rate for user.
+                            examples:
+                              - 85
+                          approval_type:
+                            type: string
+                            description: >-
+                              Approval type for the user's timesheet
+                              submissions.
+                            enum:
+                              - manual_approval
+                              - auto_approval
+                            examples:
+                              - auto_approval
+                          deleted:
+                            type: boolean
+                            description: Mark project user as deleted.
+                            examples:
+                              - false
+                email:
+                  type: string
+                  format: email
+                  description: Email of the person updating the project.
+                  examples:
+                    - oliver@example.com
+              required:
+                - email
+      responses:
+        '200':
+          description: OK - Project updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  notice_code:
+                    type: string
+                  project:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      created_at:
+                        type: string
+                        format: date-time
+                      updated_at:
+                        type: string
+                        format: date-time
+                      identifier:
+                        type: string
+                      billing_method:
+                        type: string
+                      hourly_rate:
+                        type:
+                          - number
+                          - 'null'
+                      flat_amount:
+                        type: string
+                      status:
+                        type: string
+                      id:
+                        type: string
+                        format: uuid
+                      client_id:
+                        type: string
+                      last_invoice_id:
+                        type:
+                          - string
+                          - 'null'
+                      internal_notes:
+                        type: string
+                      time_round_upto:
+                        type: integer
+                      autolock_enabled:
+                        type: boolean
+                      autolock_settings:
+                        type: object
+                        properties:
+                          end_of_the_day:
+                            type: string
+                          end_of_the_week:
+                            type: string
+                          end_of_the_month:
+                            type: string
+                      currency:
+                        type: string
+                      enable_approvals:
+                        type: boolean
+                      notify_timesheet_approval_request_instantly:
+                        type: boolean
+                      notify_timesheet_approval_request_weekly:
+                        type: boolean
+                      timesheet_approval_email_notification_day:
+                        type: string
+                      timesheet_approval_email_notification_time:
+                        type: string
+          headers: {}
+      security: []
+  /projects/update_status:
+    post:
+      summary: Update project status
+      deprecated: false
+      description: >
+        This API allows to update the status of projects. Replace `spinkart`
+        with your workspace's subdomain.
+      tags:
+        - Projects
+      parameters:
+        - name: X-Api-Key
+          in: header
+          description: >-
+            You can generate an API key from [NeetoInvoice API Keys
+            dashboard](https://help.neetoinvoice.com/p/a-828218a7).
+          required: true
+          example: ''
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                project_ids:
+                  type: array
+                  description: List of project unique identifiers.
+                  items:
+                    type: string
+                    examples:
+                      - b4c7f2d1-38b0-4d5d-8dcb-9d75e7d9fdea
+                status:
+                  type: string
+                  description: Status to be applied to the projects.
+                  enum:
+                    - active
+                    - archived
+                  examples:
+                    - archived
+                filter:
+                  type: object
+                  description: Filter configuration for selecting projects.
+                  properties:
+                    consider_all_projects:
+                      type: boolean
+                      description: Flag to consider all projects for the action.
+                      examples:
+                        - false
+                email:
+                  type: string
+                  format: email
+                  description: Email of the person creating the invoice.
+                  examples:
+                    - oliver@example.com
+              required:
+                - email
+                - status
+      responses:
+        '200':
+          description: OK - Projects updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  notice_code:
+                    type: string
+                  custom_message:
+                    type: string
+          headers: {}
+      security: []
+  /projects/{project_id}/project_users:
+    get:
+      summary: List project team members
+      deprecated: false
+      description: >
+        This API allows to list all team members assigned to a specific project.
+        Replace `spinkart` with your workspace's subdomain.
+      tags:
+        - Project Team Members
+      parameters:
+        - name: project_id
+          in: path
+          description: >-
+            Identifier of the project can be retrieved by going to the
+            particular project page, and copying it from the URL.
+          required: true
+          example: e34204233797f4b637c5
+          schema:
+            type: string
+        - name: X-Api-Key
+          in: header
+          description: >-
+            You can generate an API key from [NeetoInvoice API Keys
+            dashboard](https://help.neetoinvoice.com/p/a-828218a7).
+          required: true
+          example: ''
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK - Request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  team_members:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+                          description: Unique identifier for the project user record.
+                        user_id:
+                          type: string
+                          format: uuid
+                          description: User ID of the team member.
+                        project_id:
+                          type: string
+                          format: uuid
+                          description: Project ID.
+                        role:
+                          type: string
+                          description: Role of the team member in the project.
+                        hourly_rate:
+                          type:
+                            - number
+                            - 'null'
+                          format: float
+                          description: Hourly rate for the team member in this project.
+                        approval_type:
+                          type: string
+                          description: Approval type for timesheet submissions.
+                        deleted:
+                          type: boolean
+                          description: Whether the team member is removed from the project.
+                          examples:
+                            - false
+                        user:
                           type: object
+                          description: User details iof the team member.
                           properties:
                             id:
                               type: string
+                              format: uuid
+                            email:
+                              type: string
+                              format: email
+                            first_name:
+                              type: string
+                            last_name:
+                              type: string
                             name:
                               type: string
-                            version:
-                              type: string
-                            ip_address:
-                              type: string
-                            device_name:
-                              type: string
-                            device_type:
-                              type: string
-                            operating_system:
-                              type: string
-                            operating_system_version:
-                              type: string
-                            submission_id:
-                              type: string
-                            created_at:
-                              type: string
-                              format: date-time
-                            updated_at:
-                              type: string
-                              format: date-time
-                        responses:
-                          type: array
-                          items:
-                            type: object
-                            properties:
-                              id:
-                                type: string
-                              label:
-                                type: string
-                              position:
-                                type: integer
-                              kind:
-                                type: string
-                              slug:
-                                type: string
-                              value:
-                                type: string
-                  total_count:
-                    type: integer
+                              description: Full name of the user.
+                            active:
+                              type: boolean
+                              description: Whether the user is active in the organization.
+                        created_at:
+                          type: string
+                          format: date-time
+                        updated_at:
+                          type: string
+                          format: date-time
           headers: {}
-        '400':
-          description: Bad Request - Missing/Invalid parameters
+      security: []
+    post:
+      summary: Add team member to project
+      deprecated: false
+      description: >
+        This API allows to add a team member to a specific project. Replace
+        `spinkart` with your workspace's subdomain.
+      tags:
+        - Project Team Members
+      parameters:
+        - name: project_id
+          in: path
+          description: >-
+            Identifier of the project can be retrieved by going to the
+            particular project page, and copying it from the URL.
+          required: true
+          example: e34204233797f4b637c5
+          schema:
+            type: string
+        - name: X-Api-Key
+          in: header
+          description: >-
+            You can generate an API key from [NeetoInvoice API Keys
+            dashboard](https://help.neetoinvoice.com/p/a-828218a7).
+          required: true
+          example: ''
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                project_user:
+                  type: object
+                  properties:
+                    user_id:
+                      type: string
+                      format: uuid
+                      description: User ID of the team member to add to the project.
+                      examples:
+                        - f448f61d-0834-455c-b9f2-8a69fe159c16
+                    role:
+                      type: string
+                      description: Role of the team member in the project.
+                      enum:
+                        - project_manager
+                        - regular_user
+                      default: regular_user
+                      examples:
+                        - regular_user
+                    hourly_rate:
+                      type:
+                        - number
+                        - 'null'
+                      format: float
+                      description: Hourly rate for the team member in this project.
+                      examples:
+                        - 75.5
+                  required:
+                    - user_id
+                    - role
+                email:
+                  type: string
+                  format: email
+                  description: Email of the person adding the team member.
+                  examples:
+                    - oliver@example.com
+              required:
+                - email
+      responses:
+        '200':
+          description: OK - Team member added successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  notice_code:
+                    type: string
+                  team_member:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                      user_id:
+                        type: string
+                        format: uuid
+                      project_id:
+                        type: string
+                        format: uuid
+                      role:
+                        type: string
+                      hourly_rate:
+                        type:
+                          - number
+                          - 'null'
+                        format: float
+                      approval_type:
+                        type: string
+                      deleted:
+                        type: boolean
+                      created_at:
+                        type: string
+                        format: date-time
+                      updated_at:
+                        type: string
+                        format: date-time
           headers: {}
-        '401':
-          description: Unauthorized - Invalid API key
+      security: []
+  /projects/{project_id}/project_users/{id}:
+    put:
+      summary: Update team member in project
+      deprecated: false
+      description: >
+        This API allows to update a team member's details in a specific project.
+        Replace `spinkart` with your workspace's subdomain.
+      tags:
+        - Project Team Members
+      parameters:
+        - name: project_id
+          in: path
+          description: >-
+            Identifier of the project can be retrieved by going to the
+            particular project page, and copying it from the URL.
+          required: true
+          example: e34204233797f4b637c5
+          schema:
+            type: string
+        - name: id
+          in: path
+          description: Unique ID of the project user record to update.
+          required: true
+          example: 128c1dfc-b29f-4fda-9a05-8a90e197b81b
+          schema:
+            type: string
+            format: uuid
+        - name: X-Api-Key
+          in: header
+          description: >-
+            You can generate an API key from [NeetoInvoice API Keys
+            dashboard](https://help.neetoinvoice.com/p/a-828218a7).
+          required: true
+          example: ''
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                project_user:
+                  type: object
+                  properties:
+                    role:
+                      type: string
+                      description: Role of the team member in the project.
+                      enum:
+                        - project_manager
+                        - regular_user
+                      examples:
+                        - regular_user
+                    hourly_rate:
+                      type:
+                        - number
+                        - 'null'
+                      format: float
+                      description: Hourly rate for the team member in this project.
+                      examples:
+                        - 75.5
+                  required:
+                    - role
+                email:
+                  type: string
+                  format: email
+                  description: Email of the person adding the team member.
+                  examples:
+                    - oliver@example.com
+              required:
+                - email
+      responses:
+        '200':
+          description: OK - Team member updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  notice_code:
+                    type: string
+                  team_member:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                      user_id:
+                        type: string
+                        format: uuid
+                      project_id:
+                        type: string
+                        format: uuid
+                      role:
+                        type: string
+                      hourly_rate:
+                        type:
+                          - number
+                          - 'null'
+                        format: float
+                      approval_type:
+                        type: string
+                      deleted:
+                        type: boolean
+                      created_at:
+                        type: string
+                        format: date-time
+                      updated_at:
+                        type: string
+                        format: date-time
           headers: {}
-        '500':
-          description: Internal server error
+      security: []
+    delete:
+      summary: Remove team member from project
+      deprecated: false
+      description: >
+        This API allows to remove a team member from a specific project. Replace
+        `spinkart` with your workspace's subdomain.
+      tags:
+        - Project Team Members
+      parameters:
+        - name: project_id
+          in: path
+          description: >-
+            Identifier of the project can be retrieved by going to the
+            particular project page, and copying it from the URL.
+          required: true
+          example: e34204233797f4b637c5
+          schema:
+            type: string
+        - name: id
+          in: path
+          description: Unique ID of the project user record to remove.
+          required: true
+          example: 128c1dfc-b29f-4fda-9a05-8a90e197b81b
+          schema:
+            type: string
+            format: uuid
+        - name: X-Api-Key
+          in: header
+          description: >-
+            You can generate an API key from [NeetoInvoice API Keys
+            dashboard](https://help.neetoinvoice.com/p/a-828218a7).
+          required: true
+          example: ''
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK - Team member removed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  notice_code:
+                    type: string
+                  team_member:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                      user_id:
+                        type: string
+                        format: uuid
+                      project_id:
+                        type: string
+                        format: uuid
+                      role:
+                        type: string
+                      hourly_rate:
+                        type:
+                          - number
+                          - 'null'
+                        format: float
+                      approval_type:
+                        type: string
+                      deleted:
+                        type: boolean
+                        examples:
+                          - true
+                      created_at:
+                        type: string
+                        format: date-time
+                      updated_at:
+                        type: string
+                        format: date-time
+          headers: {}
+      security: []
+  /clients/{client_id}/invoices:
+    post:
+      summary: Generate an invoice
+      deprecated: false
+      description: >
+        This API allows to generate an invoice for a client. Replace `spinkart`
+        with your workspace's subdomain.
+      tags:
+        - Invoices
+      parameters:
+        - name: client_id
+          in: path
+          description: >-
+            Identifier of the client can be retrieved by going to the particular
+            client page, and copying it from the URL.
+          required: true
+          example: a8b90a464cad12b48e45
+          schema:
+            type: string
+        - name: X-Api-Key
+          in: header
+          description: >-
+            You can generate an API key from [NeetoInvoice API Keys
+            dashboard](https://help.neetoinvoice.com/p/a-828218a7).
+          required: true
+          example: ''
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  description: Email of the person creating the invoice.
+                  examples:
+                    - oliver@example.com
+                total:
+                  type: number
+                  format: float
+                  description: Total amount of the invoice.
+                  examples:
+                    - 1500.5
+                number:
+                  type: string
+                  description: Invoice number/identifier.
+                  examples:
+                    - INV-2023-001
+                issue_date:
+                  type: string
+                  description: Issue date of the invoice in mm/dd/yyyy format.
+                  examples:
+                    - 12/25/2023
+                due_date:
+                  type: string
+                  description: Due date of the invoice in mm/dd/yyyy format.
+                  examples:
+                    - 01/25/2024
+                due_date_period:
+                  type: string
+                  description: Due date period for the invoice.
+                  examples:
+                    - 30 days
+                interval:
+                  type: string
+                  description: Billing interval for the invoice.
+                  examples:
+                    - monthly
+                notes:
+                  type: string
+                  description: Additional notes for the invoice.
+                  examples:
+                    - 'Payment terms: Net 30 days'
+                include_hours_by_person:
+                  type: boolean
+                  description: Whether to include hours breakdown by person.
+                  examples:
+                    - true
+                include_hours_by_task:
+                  type: boolean
+                  description: Whether to include hours breakdown by task.
+                  examples:
+                    - false
+                include_time_entries:
+                  type: boolean
+                  description: Whether to include detailed time entries.
+                  examples:
+                    - true
+                send_automated_reminder_email:
+                  type: boolean
+                  description: Whether to send automated reminder emails.
+                  examples:
+                    - true
+                include_payment_link:
+                  type: boolean
+                  description: Whether to include payment link in the invoice.
+                  examples:
+                    - true
+                payment_provider:
+                  type: string
+                  description: Payment provider for the invoice.
+                  enum:
+                    - stripe
+                    - undefined
+                  examples:
+                    - stripe
+                display_task_name:
+                  type: boolean
+                  description: Whether to display task names in the invoice.
+                  examples:
+                    - true
+                display_person_name:
+                  type: boolean
+                  description: Whether to display person names in the invoice.
+                  examples:
+                    - true
+                display_date:
+                  type: boolean
+                  description: Whether to display dates in the invoice.
+                  examples:
+                    - true
+                display_note:
+                  type: boolean
+                  description: Whether to display notes in the invoice.
+                  examples:
+                    - true
+                display_project_name:
+                  type: boolean
+                  description: Whether to display project names in the invoice.
+                  examples:
+                    - false
+                project_id:
+                  type: array
+                  description: >-
+                    Array of project identifiers (string identifiers, not
+                    database IDs) to include in the invoice.
+                  items:
+                    type: string
+                  examples:
+                    - - 89d1b47d9f36af3c9ecf
+                      - 24e6a2fe31bb686c541a
+                recipient_ids:
+                  type: array
+                  description: Array of recipient IDs to send the invoice to.
+                  items:
+                    type: string
+                    format: uuid
+                  examples:
+                    - - 128c1dfc-b29f-4fda-9a05-8a90e197b81b
+                send_email:
+                  type: boolean
+                  description: Whether to send the invoice via email.
+                  examples:
+                    - true
+                invoice_details:
+                  type: object
+                  description: Email details for sending the invoice.
+                  properties:
+                    subject:
+                      type: string
+                      description: Email subject for the invoice.
+                      examples:
+                        - Invoice INV-2023-001 from Your Company
+                    message:
+                      type: string
+                      description: Email message for the invoice.
+                      examples:
+                        - >-
+                          Please find attached your invoice for the services
+                          rendered.
+                    attach_pdf_invoice:
+                      type: string
+                      description: Whether to attach PDF invoice.
+                      enum:
+                        - 'true'
+                        - 'false'
+                      examples:
+                        - 'true'
+                    send_me_a_copy:
+                      type: string
+                      description: Whether to send a copy to the sender.
+                      enum:
+                        - 'true'
+                        - 'false'
+                      examples:
+                        - 'false'
+                    payment_provider:
+                      type: string
+                      description: Payment provider for the invoice email.
+                      examples:
+                        - stripe
+                    recipient_ids:
+                      type: array
+                      description: Array of recipient IDs for email delivery.
+                      items:
+                        type: string
+                        format: uuid
+                      examples:
+                        - - 128c1dfc-b29f-4fda-9a05-8a90e197b81b
+                    has_uploaded_attachments:
+                      type: string
+                      description: Whether the email has uploaded file attachments.
+                      enum:
+                        - 'true'
+                        - 'false'
+                      examples:
+                        - 'false'
+                invoice_time_entries:
+                  type: array
+                  description: Array of time entries to include in the invoice.
+                  items:
+                    type: object
+                    properties:
+                      recorded_on:
+                        type: string
+                        description: Date when time was recorded in mm/dd/yyyy format.
+                        examples:
+                          - 12/20/2023
+                      notes:
+                        type: string
+                        description: Notes for the time entry.
+                        examples:
+                          - Development work on feature X
+                      hours:
+                        type: number
+                        format: float
+                        description: Number of hours worked.
+                        examples:
+                          - 8.5
+                      hourly_rate:
+                        type: number
+                        format: float
+                        description: Hourly rate for the work.
+                        examples:
+                          - 75
+                      time_entry_id:
+                        type: string
+                        description: >-
+                          ID of existing time entry (if linking to existing
+                          entry).
+                        examples:
+                          - time-entry-123
+                      project_id:
+                        type: string
+                        description: >-
+                          Project identifier (string identifier, not database
+                          ID) for the time entry.
+                        examples:
+                          - 89d1b47d9f36af3c9ecf
+                      task_id:
+                        type: string
+                        format: uuid
+                        description: Task ID for the time entry.
+                        examples:
+                          - 3195a9df-337d-4753-9247-8d73d998e622
+                      user_id:
+                        type: string
+                        format: uuid
+                        description: User ID who performed the work.
+                        examples:
+                          - f448f61d-0834-455c-b9f2-8a69fe159c16
+                    required:
+                      - recorded_on
+                      - hours
+                      - hourly_rate
+                      - project_id
+                      - task_id
+                      - user_id
+                invoice_services:
+                  type: array
+                  description: Array of service entries to include in the invoice.
+                  items:
+                    type: object
+                    properties:
+                      notes:
+                        type: string
+                        description: Notes for the service.
+                        examples:
+                          - Consulting services
+                      project_id:
+                        type: string
+                        format: uuid
+                        description: >-
+                          Project database ID (UUID, not string identifier) for
+                          the service.
+                        examples:
+                          - 3f0c0f87-ddc7-45f4-ad7a-c3690fa04963
+                      recorded_on:
+                        type: string
+                        description: Date when service was recorded in mm/dd/yyyy format.
+                        examples:
+                          - 12/20/2023
+                      unit_amount:
+                        type: number
+                        format: float
+                        description: Unit price for the service.
+                        examples:
+                          - 100
+                      quantity:
+                        type: number
+                        format: float
+                        description: Quantity of the service.
+                        examples:
+                          - 5
+                      file:
+                        type:
+                          - string
+                          - 'null'
+                        description: File attachment for the service (optional).
+                      project_service_id:
+                        type:
+                          - string
+                          - 'null'
+                        description: >-
+                          ID of existing project service (if linking to existing
+                          service).
+                        examples:
+                          - service-123
+                      line_total:
+                        type: number
+                        format: float
+                        description: >-
+                          Total amount for this service line (quantity ×
+                          unit_amount).
+                        examples:
+                          - 500
+                    required:
+                      - project_id
+                      - unit_amount
+                      - quantity
+                custom_attributes:
+                  type: array
+                  description: Custom attributes for the invoice.
+                  items:
+                    type: object
+                    properties:
+                      field:
+                        type: string
+                        description: Name of the custom field.
+                        examples:
+                          - Purchase Order
+                      value:
+                        type: string
+                        description: Value of the custom field.
+                        examples:
+                          - PO-2023-456
+                tax_details:
+                  type: object
+                  description: Tax details for the invoice.
+                  properties:
+                    name:
+                      type: string
+                      description: Name of the tax.
+                      examples:
+                        - VAT
+                    percentage:
+                      type: number
+                      format: float
+                      description: Tax percentage.
+                      examples:
+                        - 10
+                    notes:
+                      type: string
+                      description: Notes about the tax.
+                      examples:
+                        - Standard VAT rate
+                    new_record:
+                      type: boolean
+                      description: Whether this is a new tax record.
+                      examples:
+                        - true
+                    taxable_id:
+                      type:
+                        - string
+                        - 'null'
+                      description: ID of the taxable entity.
+                    id:
+                      type: string
+                      description: Unique identifier for the tax detail.
+                      examples:
+                        - 45bfa404-813c-4088-b511-69192d8fff98
+                    selected:
+                      type: boolean
+                      description: Whether this tax is selected/applied.
+                      examples:
+                        - true
+              required:
+                - email
+                - total
+                - number
+      responses:
+        '200':
+          description: OK - Invoice generated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  invoice:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                        description: Unique identifier of the generated invoice.
+                      number:
+                        type: string
+                        description: Invoice number.
+                      total:
+                        type: number
+                        format: float
+                        description: Total amount of the invoice.
+                      grand_total:
+                        type: number
+                        format: float
+                        description: Grand total including taxes.
+                      status:
+                        type: string
+                        description: Current status of the invoice.
+                        enum:
+                          - generating
+                          - generated
+                          - sent
+                          - paid
+                          - pending_payment
+                      issue_date:
+                        type: string
+                        format: date
+                        description: Issue date of the invoice.
+                      due_date:
+                        type: string
+                        format: date
+                        description: Due date of the invoice.
+                      notes:
+                        type: string
+                        description: Invoice notes.
+                      include_hours_by_person:
+                        type: boolean
+                        description: Whether hours by person are included.
+                      include_hours_by_task:
+                        type: boolean
+                        description: Whether hours by task are included.
+                      include_time_entries:
+                        type: boolean
+                        description: Whether time entries are included.
+                      include_payment_link:
+                        type: boolean
+                        description: Whether payment link is included.
+                      created_at:
+                        type: string
+                        format: date-time
+                        description: Creation timestamp.
+                      updated_at:
+                        type: string
+                        format: date-time
+                        description: Last update timestamp.
+          headers: {}
+        '422':
+          description: Unprocessable Entity - Validation errors
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: List of validation error messages.
+                  field_errors:
+                    type: array
+                    description: Detailed field-level errors.
+                    items:
+                      type: object
+                      properties:
+                        error:
+                          type: string
+                          description: Error type.
+                        field:
+                          type: string
+                          description: Field that caused the error.
+                        message:
+                          type: string
+                          description: Error message.
+                        value:
+                          type:
+                            - string
+                            - 'null'
+                          description: Invalid value (if applicable).
+                        format:
+                          type:
+                            - string
+                            - 'null'
+                          description: Expected format (if applicable).
           headers: {}
       security: []
 webhooks: {}
